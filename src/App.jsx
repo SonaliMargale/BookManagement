@@ -1,13 +1,35 @@
+import { useState } from 'react'
 import './App.css'
 import BookList from './components/BookList'
 import { books } from './utils/mockData'
 
 function App() {
+  const [searchText, SetsearchText]  = useState(" ")
+  const [filteredBooks, setfilteredBooks] = useState(books)
+
+  function handlSearch(){
+    console.log(searchText, "searchText");
+
+    const filterBooks = books.filter((book) => book.title.toLocaleLowerCase().includes(searchText.toLocaleLowerCase()))
+    console.log(filterBooks, "filterBooks")
+ 
+    setfilteredBooks(filterBooks)
+  }
  
   return (
     <>
       <h1>BOOK MANAGEMENT APP</h1>
-      <BookList booksData = {books}/>
+      <div className='search'>
+        <p>search book</p>
+        <div>
+        <input type="text" 
+         onChange={(e) => SetsearchText(e.target.value) }
+         className='search-input'
+         />
+        <button onClick={handlSearch}>search</button>
+        </div>
+      </div>
+      <BookList booksData = {filteredBooks}/>
     </>
   )
 }
