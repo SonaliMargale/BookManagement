@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import './App.css'
 import BookList from './components/BookList'
-import { books } from './utils/mockData'
+import { books } from './utils/mockData';
+import Header from './components/Header';
+import { Outlet } from 'react-router-dom';
 
 function App() {
-  const [searchText, SetsearchText]  = useState(" ")
+  const [searchText, SetsearchText]  = useState("")
   const [filteredBooks, setfilteredBooks] = useState(books)
 
   function handlSearch(){
@@ -29,7 +31,9 @@ function App() {
         <button onClick={handlSearch}>search</button>
         </div>
       </div>
+      <Header />
       <BookList booksData = {filteredBooks}/>
+      <Outlet />
     </>
   )
 }
