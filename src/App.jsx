@@ -1,13 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import BookList from './components/BookList'
-import { books } from './utils/mockData';
+// import { books } from './utils/mockData';
 import Header from './components/Header';
+import useFetch from "./utils/useFetch";
 import { Outlet } from 'react-router-dom';
 
 function App() {
   const [searchText, SetsearchText]  = useState("")
-  const [filteredBooks, setfilteredBooks] = useState(books)
+  const [filteredBooks, setfilteredBooks] = useState([])
+
+  const {data, error, loading} = useFetch("https://www.freetestapi.com/api/v1/books")
+
+  useEffect(() => {
+      if(data) {
+        setfilteredBooks(data)
+      }
+  },[data])
+
+  if(error) {
+    return <p>Error in loading Data: {error}</p>
+  }
+
+  if(loading) {
+    return <p>Loading....</p>
+  }
 
   function handlSearch(){
     console.log(searchText, "searchText");
@@ -17,6 +34,14 @@ function App() {
  
     setfilteredBooks(filterBooks)
   }
+
+  
+  // async function fetchData(){
+  //      const response = await fetch("https://www.freetestapi.com/api/v1/books");
+  //      const data = await response.json()
+  //      setfilteredBooks(data);
+  //      console.log("data",data)
+  // }
  
   return (
     <>

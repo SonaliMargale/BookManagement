@@ -4,7 +4,7 @@ import "./style.css";
 function Book({bookDetails}) {
     return (
         <div className="book-card">
-        <img src={bookDetails.coverImage}
+        <img src={bookDetails.cover_image}
          alt="alt"  
          width="200px" 
          height="200px"
